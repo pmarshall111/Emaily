@@ -8,7 +8,8 @@ passport.use(
     {
       clientID: googleKeys.client_id,
       clientSecret: googleKeys.client_secret,
-      callbackURL: "/auth/google/callback"
+      callbackURL: "/auth/google/callback",
+      proxy: true
     },
     (accessToken, refreshToken, profile, done) => {
       console.log(profile);

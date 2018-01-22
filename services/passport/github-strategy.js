@@ -8,7 +8,8 @@ passport.use(
     {
       clientID: gitHubKeys.client_id,
       clientSecret: gitHubKeys.client_secret,
-      callbackURL: "/auth/github/callback"
+      callbackURL: "/auth/github/callback",
+      proxy: true
     },
     (accessToken, refreshToken, profile, done) => {
       // console.log({ accessToken, refreshToken, profile });
