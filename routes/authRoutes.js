@@ -20,10 +20,16 @@ module.exports = function(app) {
     res.send({ message: "howdy", user: req.user });
   });
 
+  app.get("/current-user", (req, res) => {
+    if (req.user) return res.send({ user: req.user });
+    res.send({ error: "User not currently logged in" });
+  });
+
   app.get("/logout", (req, res) => {
     //this is a function added by passport to the req object
     req.logout();
-    res.send({ message: "cya", user: req.user });
+    res.redirect("/");
+    // res.send({ message: "cya", user: req.user });
   });
 
   //google oauth routes

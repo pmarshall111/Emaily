@@ -10,21 +10,24 @@ passport.use(
       clientSecret: googleKeys.client_secret,
       callbackURL: "/auth/google/callback",
       proxy: true
+      //the proxy setting is there to fix an error regarding the google redirect going to http
+      //rather than https. This happens by default because the GoogleStrategy fills out the
+      //relative callbackURL with http because if the traffic goes through a proxy, it automatically
+      //assumes it is not secure anymore. The traffic has to go through the heroku proxy to get to
+      //the correct port as there are thousands of ports running at the same time on heroku's server.
+      //if we add in the key-value pair of proxy: true, we are saying that we trust the proxy's
+      //the traffic is going through and to keep it https.
     },
-    (accessToken, refreshToken, profile, done) => {
-      console.log(profile);
-      User.findOne({ googleID: profile.id }).then(match => {
-        if (match) {
-          done(null, match);
-        } else
-          User.create({
-            googleID: profile.id,
-            email: profile.emails[0].value,
-            name: profile.name.givenName
-          }).then(user => {
-            done(null, user);
-          });
+    async (accessToken, refreshToken, profile, done) => {
+      var match = await User.findOne({ googleID: profile.id });
+      if (match) return done(null, match);
+
+      var user = await User.create({
+        googleID: profile.id,
+        email: profile.emails[0].value,
+        name: profile.name.givenName
       });
+      done(null, user);
     }
   )
 );

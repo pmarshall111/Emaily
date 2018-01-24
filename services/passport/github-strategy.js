@@ -11,21 +11,16 @@ passport.use(
       callbackURL: "/auth/github/callback",
       proxy: true
     },
-    (accessToken, refreshToken, profile, done) => {
-      // console.log({ accessToken, refreshToken, profile });
-      User.findOne({ gitHubID: profile.id }).then(match => {
-        if (match) done(null, match);
-        else {
-          User.create({
-            gitHubID: profile.id,
-            name: profile.displayName,
-            email: profile.emails[0].value
-          }).then(user => {
-            console.log({ user });
-            done(null, user);
-          });
-        }
+    async (accessToken, refreshToken, profile, done) => {
+      var match = await User.findOne({ gitHubID: profile.id });
+      if (match) return done(null, match);
+
+      var nUser = await User.create({
+        gitHubID: profile.id,
+        name: profile.displayName,
+        email: profile.emails[0].value
       });
+      done(null, nUser);
     }
   )
 );
