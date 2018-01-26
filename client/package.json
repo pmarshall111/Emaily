@@ -14,6 +14,9 @@
     },
     "/current-user": {
       "target": "http://localhost:5000"
+    },
+    "/api/stripe": {
+      "target": "http://localhost:5000"
     }
   },
   "dependencies": {
@@ -23,6 +26,7 @@
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.0",
+    "react-stripe-checkout": "^2.6.3",
     "redux": "^3.7.2",
     "redux-form": "^7.2.1",
     "redux-thunk": "^2.2.0"

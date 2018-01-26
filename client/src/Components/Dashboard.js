@@ -6,10 +6,6 @@ import { currentUserActionCreator } from "../Actions";
 import SurveyList from "./SurveyList";
 
 class Dashboard extends Component {
-  constructor() {
-    super();
-  }
-
   componentDidMount() {
     if (!this.props.currentUser.id) {
       //send off an action to get the current user.

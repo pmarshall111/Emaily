@@ -37,9 +37,21 @@ module.exports = function(app) {
     "/auth/google",
     passport.authenticate("google", { scope: ["profile", "email"] })
   );
-  app.get("/auth/google/callback", passport.authenticate("google"));
+  app.get(
+    "/auth/google/callback",
+    passport.authenticate("google"),
+    (req, res) => {
+      res.redirect("/surveys");
+    }
+  );
 
   //github oath routes
   app.get("/auth/github", passport.authenticate("github", { scope: ["user"] }));
-  app.get("/auth/github/callback", passport.authenticate("github"));
+  app.get(
+    "/auth/github/callback",
+    passport.authenticate("github"),
+    (req, res) => {
+      res.redirect("/surveys");
+    }
+  );
 };

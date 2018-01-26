@@ -14,7 +14,6 @@ passport.use(
     async (accessToken, refreshToken, profile, done) => {
       var match = await User.findOne({ gitHubID: profile.id });
       if (match) return done(null, match);
-
       var nUser = await User.create({
         gitHubID: profile.id,
         name: profile.displayName,

@@ -1,12 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import LoginButton from "./LoginButton";
+import Payments from "./Payments";
 
 class Header extends Component {
-  constructor() {
-    super();
-  }
-
   render() {
     const { currentUser } = this.props;
     var userActions = !currentUser._id ? (
@@ -21,7 +18,7 @@ class Header extends Component {
     ) : (
       <ul id="nav-mobile" className="right">
         <li>
-          <a href="/add-credits">Add Credits</a>
+          <Payments />
         </li>
         <li>
           <div>Credits: {currentUser.credits}</div>
@@ -35,7 +32,7 @@ class Header extends Component {
     return (
       <nav>
         <div className="nav-wrapper">
-          <a href="#" className="left brand-logo">
+          <a href="/" className="left brand-logo">
             Emaily
           </a>
           {userActions}

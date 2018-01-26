@@ -5,8 +5,6 @@ import { Link } from "react-router-dom";
 import SurveyItem from "./SurveyItem";
 
 class SurveyList extends Component {
-  contructor() {}
-
   render() {
     if (!this.props.currentUser.surveys)
       return (
@@ -15,9 +13,9 @@ class SurveyList extends Component {
         </div>
       );
 
-    const surveys = this.props.currentUser.surveys.map(survey => {
-      <SurveyItem info={survey} />;
-    });
+    const surveys = this.props.currentUser.surveys.map(survey => (
+      <SurveyItem info={survey} />
+    ));
     return <div>{surveys}</div>;
   }
 }
